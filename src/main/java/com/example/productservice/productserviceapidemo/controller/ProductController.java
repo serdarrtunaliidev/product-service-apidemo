@@ -1,11 +1,11 @@
 package com.example.productservice.productserviceapidemo.controller;
 
 import com.example.productservice.productserviceapidemo.dto.ProductInfoResponseDto;
+import com.example.productservice.productserviceapidemo.entity.ProductEntity;
 import com.example.productservice.productserviceapidemo.service.ProductService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +22,15 @@ public class ProductController extends BaseController {
     @GetMapping(path = "/getProductsByCategory")
     public List<ProductInfoResponseDto> getProductsByCategory(@RequestParam String category) {
         return productService.getProductsByCategory(category);
+    }
+
+    @PostMapping(path = "/save")
+    public ResponseEntity save(@RequestBody ProductInfoResponseDto request) {
+        ResponseEntity<ProductEntity> response = productService.save(request);
+        if(response.getStatusCode().equals(HttpStatus.CREATED)) {
+            return new ResponseEntity<>("işleminiz gerçekleşmiştir",HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
     }
 }
