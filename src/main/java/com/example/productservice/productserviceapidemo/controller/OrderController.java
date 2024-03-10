@@ -19,7 +19,6 @@ public class OrderController {
 
     @PostMapping("/save")
     public ResponseEntity save(@RequestBody OrderRequestDto orderRequestDto) {
-        ResponseEntity responseEntity = orderService.save(orderRequestDto);
-        return responseEntity;
+        return orderService.save(orderRequestDto);
     }
 }

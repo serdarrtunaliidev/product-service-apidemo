@@ -4,10 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 @Entity
@@ -15,6 +12,7 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class OrderProductEntity extends BaseEntity implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id")

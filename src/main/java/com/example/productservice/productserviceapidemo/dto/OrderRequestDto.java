@@ -10,4 +10,5 @@ import lombok.*;
 public class OrderRequestDto {
     private long productId;
     private String orderDescription;
+    private Double totalAmount;
 }

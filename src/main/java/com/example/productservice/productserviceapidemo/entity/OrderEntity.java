@@ -3,10 +3,7 @@ package com.example.productservice.productserviceapidemo.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -17,6 +14,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class OrderEntity extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
