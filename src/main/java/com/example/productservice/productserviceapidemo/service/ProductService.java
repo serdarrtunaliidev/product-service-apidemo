@@ -1,6 +1,6 @@
 package com.example.productservice.productserviceapidemo.service;
 
-import com.example.productservice.productserviceapidemo.dto.ProductInfoResponseDto;
+import com.example.productservice.productserviceapidemo.dto.ProductInfoRequestDto;
 import com.example.productservice.productserviceapidemo.entity.ProductEntity;
 
 import com.example.productservice.productserviceapidemo.mapper.ProductMapperToEntity;
@@ -30,20 +30,23 @@ public class ProductService extends BaseService {
         this.productMapperToEntity = productMapperToEntity;
     }
 
-    public List<ProductInfoResponseDto> getProductsByCategory(String category) {
+    public List<ProductInfoRequestDto> getProductsByCategory(String category) {
         return productRepository.getByCategory(category);
     }
 
-    public ResponseEntity<ProductEntity> save(ProductInfoResponseDto incomingDto) {
+    public ProductEntity getProductById(Long productId) {
+        return productRepoJpa.findById(productId).get();
+    }
+
+    public ResponseEntity<ProductEntity> save(ProductInfoRequestDto incomingDto) {
         if(Objects.nonNull(incomingDto.getCategory()) && Objects.nonNull(incomingDto.getName()) && Objects.nonNull(incomingDto.getPrice())) {
             ProductEntity productEntity = productMapperToEntity.mapToEntity(incomingDto);
             ProductEntity response = productRepoJpa.save(productEntity);
             return new ResponseEntity<>(response, HttpStatus.CREATED);
         }
-        else {
-            logger.error("Product parameter in request is invalid");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        logger.error("Product parameter in request is invalid");
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-        }
+
     }
 }

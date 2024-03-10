@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProductInfoResponseDto {
+public class ProductInfoRequestDto {
     private String name;
     private String category;
     private Double price;

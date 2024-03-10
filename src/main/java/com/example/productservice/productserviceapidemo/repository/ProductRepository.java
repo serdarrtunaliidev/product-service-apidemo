@@ -1,6 +1,6 @@
 package com.example.productservice.productserviceapidemo.repository;
 
-import com.example.productservice.productserviceapidemo.dto.ProductInfoResponseDto;
+import com.example.productservice.productserviceapidemo.dto.ProductInfoRequestDto;
 import com.example.productservice.productserviceapidemo.entity.ProductEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -14,9 +14,8 @@ public class ProductRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<ProductInfoResponseDto> getByCategory (String category) {
+    public List<ProductInfoRequestDto> getByCategory (String category) {
         String sql = "SELECT * FROM products WHERE category = ?";
         return jdbcTemplate.query(sql, new Object[]{category}, new ProductMapper());
     }
-
 }
