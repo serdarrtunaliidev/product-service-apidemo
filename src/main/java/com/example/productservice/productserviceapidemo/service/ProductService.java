@@ -13,7 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class ProductService extends BaseService {
@@ -48,5 +50,11 @@ public class ProductService extends BaseService {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
 
+    }
+
+    public void deleteById(Long productId) {
+        ProductEntity productEntity = productRepoJpa.findById(productId)
+                .orElseThrow(() -> new NoSuchElementException("Product Not Found"));
+        productRepoJpa.delete(productEntity);
     }
 }
