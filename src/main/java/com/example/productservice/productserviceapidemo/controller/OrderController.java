@@ -2,11 +2,11 @@ package com.example.productservice.productserviceapidemo.controller;
 
 import com.example.productservice.productserviceapidemo.dto.OrderRequestDto;
 import com.example.productservice.productserviceapidemo.service.OrderService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/order")
@@ -19,8 +19,17 @@ public class OrderController {
 
     @PostMapping("/save")
     public ResponseEntity save(@RequestBody OrderRequestDto orderRequestDto) {
-        System.out.println("sa");
         return orderService.save(orderRequestDto);
 
+    }
+
+    @DeleteMapping()
+    public ResponseEntity delete(@RequestParam Long orderId) {
+        try {
+            orderService.deleteById(orderId);
+            return ResponseEntity.ok().build();
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order not found");
+        }
     }
 }

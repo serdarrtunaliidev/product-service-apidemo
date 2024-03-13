@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.NoSuchElementException;
+
 @Component
 public class OrderService extends BaseService{
 
@@ -44,5 +46,11 @@ public class OrderService extends BaseService{
 
 
 
+    }
+
+    public void deleteById(Long orderId) {
+        OrderEntity order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new NoSuchElementException());
+        orderRepository.delete(order);
     }
 }
